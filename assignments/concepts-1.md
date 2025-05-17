@@ -85,7 +85,6 @@ These are ways to select and style HTML elements using CSS.
  let names = ["Ram", "Shyam", "Hari"];
  names.forEach(name => {
   console.log("Hello " + name);
- });
 
 - **push()** → Adds one or more elements to the end of an array and returns the new length.
 
@@ -103,6 +102,7 @@ These are ways to select and style HTML elements using CSS.
   let lastFruit = fruits.pop();
   console.log(lastFruit); // Output: 'orange'
   console.log(fruits);
+});
 
 
 
