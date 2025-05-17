@@ -80,11 +80,13 @@ These are ways to select and style HTML elements using CSS.
 - **forEach()** → Runs a function for each element in the array.  
   It doesn’t return a new array — it just performs the action.
 
- **Example:**
- ```javascript
- let names = ["Ram", "Shyam", "Hari"];
- names.forEach(name => {
-  console.log("Hello " + name);
+  **Example:**
+  ```javascript
+  let names = ["Ram", "Shyam", "Hari"];
+  names.forEach(name => {
+    console.log("Hello " + name);
+  });
+  ```
 
 - **push()** → Adds one or more elements to the end of an array and returns the new length.
 
@@ -93,6 +95,7 @@ These are ways to select and style HTML elements using CSS.
   let fruits = ['apple', 'banana'];
   fruits.push('orange');
   console.log(fruits);
+  ```
 
 - **pop()** → Removes the last element from an array and returns that element.
 
@@ -102,7 +105,7 @@ These are ways to select and style HTML elements using CSS.
   let lastFruit = fruits.pop();
   console.log(lastFruit); // Output: 'orange'
   console.log(fruits);
-});
+  ```
 
 
 
