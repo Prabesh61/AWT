@@ -1,39 +1,41 @@
 const express = require("express");
+const sqlite3 = require("sqlite3").verbose();
 
 const app = express();
-
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-let quotes = [
-  { id: 1, text: "Life is what happens when you're busy making other plans." },
-  { id: 2, text: "The way to get started is to quit talking and doing." },
-  {
-    id: 3,
-    text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
-  },
-  {
-    id: 4,
-    text: "The future belongs to those who believe in the beauty of their dreams.",
-  },
-  { id: 5, text: "In the middle of difficulty lies opportunity." },
-];
+const db = new sqlite3.Database("./quotes.db", (err) => {
+  if (err) return console.error(err.message);
+  console.log("Connected to SQLite database.");
+});
+db.run(`CREATE TABLE IF NOT EXISTS quotes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  text TEXT
+)`);
+
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+
 app.get("/quotes", (req, res) => {
-  res.json(quotes);
+  db.all("SELECT * FROM quotes", [], (err, rows) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(rows);
+  });
 });
 
 app.post("/addquote", (req, res) => {
-  const newQuote = { id: Date.now(), text: req.body.text };
-  quotes.push(newQuote);
-  res.status(201).json(newQuote);
+  const { text } = req.body;
+  db.run("INSERT INTO quotes (text) VALUES (?)", [text], function (err) {
+    if (err) return res.status(500).json({ error: err.message });
+    res.status(201).json({ id: this.lastID, text });
+  });
 });
 
+// Server
 const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
