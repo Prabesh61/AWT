@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quotes API Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background: #f2f2f2;
+      color: #333;
+    }
+    h1 {
+      color: #007BFF;
+    }
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+    li {
+      background: #fff;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .quote-text {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    .quote-author {
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <h1>📜 Quotes List</h1>
+  <p>This page fetches quotes from your Express + Prisma API and displays them below:</p>
+  <ul id="quotesList">
+    <li>Loading quotes...</li>
+  </ul>
+
+  <script>
+    fetch("/api/quotes")
+      .then(response => response.json())
+      .then(data => {
+        const list = document.getElementById("quotesList");
+        list.innerHTML = ""; // Clear loading text
+
+        if (data.length === 0) {
+          list.innerHTML = "<li>No quotes found!</li>";
+        } else {
+          data.forEach(quote => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+              <div class="quote-text">"${quote.text}"</div>
+              <div class="quote-author">– ${quote.author || "Unknown"}</div>
+            `;
+            list.appendChild(li);
+          });
+        }
+      })
+      .catch(error => {
+        document.getElementById("quotesList").innerHTML = "<li>Error fetching quotes.</li>";
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
