@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Student registration form</h1>
+    <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required placeholder="Enter your name">
+        <br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email">
+        <br><br>
+        <label for="Password">Password:</label>
+        <input type="password" id="Password" name="Password" required placeholder="Enter your password">
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <a href="https://www.google.com">Google</a>
+    <a href="https://www.facebook.com">Facebook</a>
+    <script>
+    function getWelcomeMessage() {
+        return "Welcome to the registration form!";
+    }
+    function getCurrentYear() {
+        return new Date().getFullYear();
+    }
+    function number(){
+        return 42;
+    }
+    function getFruits() {
+    return ["apple", "banana", "orange"];
+    }
+    function agecompare(age1, age2) {
+        if (age1 > age2) {
+            return "Age 1 is greater than Age 2";
+        } else if (age1 < age2) {
+            return "Age 1 is less than Age 2";
+        } else {
+            return "Both ages are equal";
+        }
+    }
+    function rollcompare(roll) {
+        if (roll <= 20) {
+            return "group a";
+        } else{
+
+            return "group b";
+        }
+    }   
+    function layaltypoint(){
+        const purchaseAmount = 1000;
+        const loyaltyPoints = purchaseAmount * 0.1;
+        return loyaltyPoints;
+    }
+    console.log(layaltypoint());
+    console.log(rollcompare(25));
+    console.log(agecompare(25, 30));
+    console.log(getCurrentYear());
+    console.log(number());
+    console.log(getWelcomeMessage());
+    console.log(getFruits());
+</script>
+</body>
+</html>
