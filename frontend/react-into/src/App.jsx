@@ -1,48 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const Greet = (props) => {
-  const { name } = props;
-  return <h1>{name}</h1>;  
-};
+export default function App() {
+  const [quotesList, setQuotesList] = useState([]);
 
-const App = () => { // <-- Move useState here
 
-  return (
-    <div>
-      <Greet name="John" />
-      <Quote text="The only limit to our realization of tomorrow is our doubts of today." author="Franklin D. Roosevelt" />
-      <Quotes />
-    </div>
-  );
-}
-
-const Quotes = () => {
-   const [quotes, setQuote] = useState([
-    "The only limit to our realization of tomorrow is our doubts of today.",
-    "Life is what happens when you're busy making other plans." ,
-    "Get busy living or get busy dying."
-   ]);
+  function handleSubmit(e) {
+    e.preventDefault();
+    const author = e.target.author.value;
+    const text = e.target.text.value;
+    const newQuote = { id: quotesList.length + 1, author, text };
+    setQuotesList([...quotesList, newQuote]);
+    e.target.reset();
+  }
 
   return (
     <div>
-      <h2>
-        {
-        quotes.map((quote, index) => (
-          <Quote key={index} text={quote} author="Prabesh" />
-        ))
-        }
-      </h2>
+      <h1>Quotes</h1>
+      <form onSubmit={handleSubmit}>
+        <input 
+          type="text" 
+          name="author"
+          placeholder="Author" 
+          required
+        />
+        <input 
+          type="text" 
+          name="text"
+          placeholder="Quote" 
+          required
+        />
+        <button type="submit">Add Quote</button>
+      </form>
+
+      <div className="quotes-list">
+        {quotesList.map((quote) => (
+          <div key={quote.id}>
+            <h2>{quote.author}</h2>
+            <p>{quote.text}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
-
-const Quote = ({ text, author }) => {
-  return (
-    <div>
-      <p>{text}</p>
-      <p>- {author}</p>
-    </div>
-  );
-}
-
-export default App;
